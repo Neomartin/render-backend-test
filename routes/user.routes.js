@@ -9,9 +9,10 @@ api.get('/users', userController.obtenerUsuarios);
 api.post('/users', userController.agregarUsuario)
 
 //Leer usuario específico
-api.get('/users/:id', userController.obtenerUsuarioEspecifico)
+api.get('/users/:nombreDelParametro', userController.obtenerUsuarioEspecifico)
 
 //Borrar usuario
+api.delete('/users/:nombreParamId', userController.borrarUsuario)
 
 //Editar usuario
 
