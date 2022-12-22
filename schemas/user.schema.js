@@ -6,7 +6,7 @@ const UserSchema = new Schema({
     email: { type: String, required: true, unique: true, index: true, minlength: 6, maxlength: 30  },
     password:  { type: String, required: true }, // minlength - maxlength
     age: { type: Number, required: true, min: 12, max: 120 },
-    active: { type: Boolean, default: true, required: true }
+    active: { type: Boolean, default: true, required: true },
 })
 
 module.exports = mongoose.model('User', UserSchema)

@@ -15,6 +15,7 @@ api.get('/users/:nombreDelParametro', userController.obtenerUsuarioEspecifico)
 api.delete('/users/:nombreParamId', userController.borrarUsuario);
 
 // Editar
+api.put('/users/:id', userController.actualizarUsuario);
 
 // Busqueda de usuario bajo varios filtros
 api.get('/users-filter', userController.obtenerUsuariosFiltrados)

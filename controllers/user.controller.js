@@ -1,6 +1,8 @@
 const User = require('../schemas/user.schema');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const jwt = require('jsonwebtoken');
+const secret = '4lfa_b3t4!'
 
 //Funciones de Leer
 async function obtenerUsuarios(req, res) {
@@ -121,8 +123,47 @@ async function borrarUsuario(req, res) {
     
 }
 //Funciones de Editar usuario
+async function actualizarUsuario(req, res) {
+    try {
+        const id = req.params.id;
 
+        // Buscamos si el usuario existe
+        // const user = await User.findById(id);
 
+        // if(!user) {
+        //     return formatResponse(res, 404, `No se encontró usuario`, false)
+        // }
+        const update = req.body;
+
+        if(update.password) {
+            const hash = await bcrypt.hash(update.password, saltRounds);
+
+            update.password = hash;
+        }
+        
+        // Actualizar datos del usuario
+        const userUpdated = await User.findByIdAndUpdate(id, update, { new: true })
+
+        // .select({ password: 0 });
+        // { new: true }
+
+        console.log(userUpdated)
+
+        return res.status(200)
+                  .send({   msg: `Actualizar usuario: ${id}`,
+                            ok: true,
+                            user: userUpdated
+                        })
+
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send(`Error al actualizar usuario`)
+    }
+}
+
+function formatResponse(res, code, msg, ok) {
+    return res.status(code).send({ msg, ok });
+}
 
 
 //Funciones de Login
@@ -141,18 +182,30 @@ async function loginUsuario(req, res) {
         //Existe usuario comparo el password  que me envió en el login con el que tiene mi usuario en la DB
         const result = await bcrypt.compare(passwordBody, user.password);
 
-        if(result) {
-            return res.status(200).send({
-                msg: 'Login correcto',
-                ok: true
-            })
-        } else {
+        // La persona se logueo correctamente
+        if(!result) {
             return res.status(404).send({
                 msg: 'Login incorrecto alguno de los datos es incorrecto',
                 ok: false
-            })
+            })   
         }
 
+        console.log(user);
+        console.log(user.toJSON());
+
+
+        // user.password = undefined
+        // Como la persona es quien dice ser, necesito generar un JWT
+        const token = await jwt.sign(user.toJSON(), secret);
+
+
+
+
+        return res.status(200).send({
+            msg: 'Login correcto',
+            ok: true,
+            token
+        })
 
 
     } catch (error) {
@@ -206,6 +259,7 @@ module.exports = {
     obtenerUsuarioEspecifico,
     borrarUsuario,
     obtenerUsuariosFiltrados,
-    loginUsuario
+    loginUsuario,
+    actualizarUsuario
     // masFunciones
 }
