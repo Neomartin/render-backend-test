@@ -2,7 +2,7 @@ const User = require('../schemas/user.schema');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
-const secret = '4lfa_b3t4!'
+const secret = '4lfa_b3t4!';
 
 //Funciones de Leer
 async function obtenerUsuarios(req, res) {
@@ -189,22 +189,17 @@ async function loginUsuario(req, res) {
                 ok: false
             })   
         }
-
-        console.log(user);
-        console.log(user.toJSON());
-
-
-        // user.password = undefined
+        //Remuevo el password del user
+        user.password = undefined
         // Como la persona es quien dice ser, necesito generar un JWT
         const token = await jwt.sign(user.toJSON(), secret);
-
-
 
 
         return res.status(200).send({
             msg: 'Login correcto',
             ok: true,
-            token
+            token,
+            user
         })
 
 

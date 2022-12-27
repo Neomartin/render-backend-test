@@ -1,15 +1,16 @@
 const express = require('express');
 const api = express.Router();
-const userController = require('../controllers/user.controller')
+const userController = require('../controllers/user.controller');
+const jwtVerify = require('../middlewares/isAuth')
 
 //Leer TODOS los usuarios
-api.get('/users', userController.obtenerUsuarios);
+api.get('/users', jwtVerify, userController.obtenerUsuarios);
 
 //Crear (Registrar)
 api.post('/users', userController.agregarUsuario)
 
 //Leer usuario específico
-api.get('/users/:nombreDelParametro', userController.obtenerUsuarioEspecifico)
+api.get('/users/:nombreDelParametro', jwtVerify, userController.obtenerUsuarioEspecifico)
 
 //Borrar usuario
 api.delete('/users/:nombreParamId', userController.borrarUsuario);
