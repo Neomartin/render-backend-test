@@ -11,7 +11,13 @@ async function obtenerUsuarios(req, res) {
                                 .collation({ locale:  'es' })
                                 .sort({age: -1});
     console.log(usersFromDB);
-    res.send(usersFromDB);
+    res.send(
+        {
+            msg: `Usuarios obtenidos correctamente`,
+            ok: true,
+            users: usersFromDB
+        }
+    );
 }
 
 //Funciones de Crear (Registrar)
@@ -192,8 +198,7 @@ async function loginUsuario(req, res) {
         //Remuevo el password del user
         user.password = undefined
         // Como la persona es quien dice ser, necesito generar un JWT
-        const token = await jwt.sign(user.toJSON(), secret);
-
+        const token = await jwt.sign(user.toJSON(), secret, { expiresIn: '2h'});
 
         return res.status(200).send({
             msg: 'Login correcto',
