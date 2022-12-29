@@ -6,18 +6,40 @@ const secret = '4lfa_b3t4!';
 
 //Funciones de Leer
 async function obtenerUsuarios(req, res) {
-    const usersFromDB = await User.find({}, { password: 0 })
-    //collation es para que no discrimine mayusculas de minusculas en el ordanimiento 
-                                .collation({ locale:  'es' })
-                                .sort({age: -1});
-    console.log(usersFromDB);
-    res.send(
-        {
-            msg: `Usuarios obtenidos correctamente`,
-            ok: true,
-            users: usersFromDB
-        }
-    );
+    const page = req.query.page;  //numero de pagina que estoy consultando
+    const limit =  3; //limite de resultados a buscar **req.query.limit || limit
+    try {
+        const usersFromDB = await User.find({}, { password: 0 })
+        //collation es para que no discrimine mayusculas de minusculas en el ordanimiento 
+                                    .collation({ locale:  'es' })
+                                    .sort({age: -1})
+                                    .limit(limit)
+                                    .skip(page * limit);
+
+        console.log(`Longitud de la búsqueda`, usersFromDB.length);
+
+
+        const totalUsers = await User.countDocuments();
+        console.log(`Total de usuario en la DB`, totalUsers)
+
+        res.send(
+            {
+                msg: `Usuarios obtenidos correctamente`,
+                ok: true,
+                users: usersFromDB,
+                total: totalUsers
+            }
+        );
+    } catch (error) {
+        console.log(error)
+        res.status(400).send(
+            {
+                msg: `No se pudieron obtener los usuarios`,
+                ok: false,
+            }
+        );
+    }
+    
 }
 
 //Funciones de Crear (Registrar)
