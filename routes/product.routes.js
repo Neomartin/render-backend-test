@@ -7,13 +7,12 @@ const productController = require('../controllers/product.controller');
 api.get('/products', productController.obtenerProductos)
 
 // Buscar productos bajo ciertos parametros
-api.get('/products-filter', productController.obtenerProductosFiltrados)
 
 
 //Crear
-
+api.post('/product', productController.agregarProductos)
 //Leer productos específico
-
+api.get('/product/:id', productController.obtenerProducto)
 //Borrar producto
 
 //Editar producto
