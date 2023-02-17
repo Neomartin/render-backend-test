@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const port = 3200;
-const dbPassword = 'alfab3ta';
-const URL = `mongodb+srv://neotech:${dbPassword}@ecommerce.2qy88.mongodb.net/10i-DB`;
-const app = require('./app')
+const app = require('./app');
+require('dotenv').config();
+const port = process.env.PORT || 3200;
+const URL = process.env.MONGO_URL;
 
 
 async function dbConnect() {
