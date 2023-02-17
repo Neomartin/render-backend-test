@@ -6,6 +6,7 @@ const path = require("path");
 const user_routes = require('./routes/user.routes');
 const product_routes = require('./routes/product.routes');
 const upload_routes = require('./routes/upload.routes');
+const order_routes = require('./routes/order.routes');
 //Middlewares
 //Habilito realizar peticiones desde el navegador a mi backend
 app.use(cors())
@@ -18,7 +19,8 @@ app.use(express.static("public"));
 app.use([
         user_routes,
         product_routes,
-        upload_routes
+        upload_routes,
+        order_routes
 ]);
 
 module.exports = app;

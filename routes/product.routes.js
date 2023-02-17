@@ -14,7 +14,6 @@ api.post('/product', productController.agregarProductos)
 //Leer productos específico
 api.get('/product/:id', productController.obtenerProducto)
 //Borrar producto
-
 //Editar producto
 
 module.exports = api;
