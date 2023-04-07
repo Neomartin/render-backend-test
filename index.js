@@ -1,12 +1,18 @@
 const mongoose = require('mongoose');
 const app = require('./app');
+
+
 require('dotenv').config();
+
+
 const port = process.env.PORT || 3200;
+
+
 const URL = process.env.MONGO_URL;
 
 
 async function dbConnect() {
-    // Conectarnos a la Base de datos la palabra reservada await cuando la función es ASYNC me permite pausar la ejecución de la siguiente línea hasta que se haya resuelto la petición asincrona
+    // Conectarnos a la Base de datos la palabra reservada await cuando la función es    ASYNC me permite pausar la ejecución de la siguiente línea hasta que se haya resuelto la petición asincrona
     mongoose.set('strictQuery', false);
 
     await mongoose.connect(URL)
