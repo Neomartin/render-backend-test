@@ -1,4 +1,4 @@
-export function assignPermissions(role) {
+module.export = function assignPermissions(role) {
     switch (role) {
         case 'customer':
         return ['read_products'];

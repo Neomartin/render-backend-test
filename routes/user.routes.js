@@ -7,7 +7,7 @@ const jwtVerify = require('../middlewares/isAuth')
 api.get('/users', jwtVerify, userController.obtenerUsuarios);
 
 //Crear (Registrar)
-api.post('/users', userController.agregarUsuario)
+api.post('/users', userController.crearUsuario)
 
 //Leer usuario específico
 api.get('/users/:nombreDelParametro', jwtVerify, userController.obtenerUsuarioEspecifico)

@@ -2,6 +2,7 @@ const User = require('../schemas/user.schema');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
+const { assignPermissions } = require('../utils/role.utils');
 const secret = '4lfa_b3t4!';
 
 //Funciones de Leer
@@ -43,7 +44,7 @@ async function obtenerUsuarios(req, res) {
 }
 
 //Funciones de Crear (Registrar)
-const agregarUsuario = async(req, res) => {
+const crearUsuario = async(req, res) => {
     try {
 
         let password = req.body.password;
@@ -51,6 +52,13 @@ const agregarUsuario = async(req, res) => {
         const userToSave = new User(req.body);
 
         userToSave.email = userToSave.email.toLowerCase();
+
+        //Manejo de roles y permisos
+        if(req.user.role !== 'superadmin' || req.user.role !== 'admin') {
+            userToSave.role = 'customer'
+        }
+
+        userToSave.permissions = assignPermissions(userToSave.role);
 
 
         // Checkeo si el usuario que estoy intentando registrar ya existe, de se así no continuo con el guardado y corto la ejecución de la request
@@ -277,7 +285,7 @@ async function obtenerUsuariosFiltrados(req, res) {
 
 module.exports = {
     obtenerUsuarios,
-    agregarUsuario,
+    crearUsuario,
     obtenerUsuarioEspecifico,
     borrarUsuario,
     obtenerUsuariosFiltrados,
