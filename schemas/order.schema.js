@@ -14,6 +14,7 @@ const OrderSchema = new Schema({
     status: { type: String, required: true, enum: ['pending', 'in progress', 'delivered'], default: 'pending' },
     updatedAt: { type: Date, required: true, default: Date.now },
     shippingAddress: { address: String, city: String,  postalCode: String },
+    totalPrice: { type: Number, required: true },
     paymentMethod: String,
     paymentResult: {
         id: String,
@@ -21,7 +22,6 @@ const OrderSchema = new Schema({
         update_time: String,
         email_address: String,
     },
-    totalPrice: Number,
 })
 
 module.exports = mongoose.model('Order', OrderSchema);

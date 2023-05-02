@@ -1,9 +1,6 @@
 
 const express = require('express');
 const api = express.Router();
-const orderController = require('../controllers/order.controller');
-const express = require('express');
-const router = express.Router();
 
 const orderController = require('../controllers/order.controller');
 //Get order by id

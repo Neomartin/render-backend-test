@@ -164,12 +164,15 @@ async function actualizarUsuario(req, res) {
         const id = req.params.id;
 
         // Buscamos si el usuario existe
-        // const user = await User.findById(id);
+        const user = await User.findById(id);
 
-        // if(!user) {
-        //     return formatResponse(res, 404, `No se encontró usuario`, false)
-        // }
+        if(!user) {
+            return formatResponse(res, 404, `No se encontró usuario`, false)
+        }
+
         const update = req.body;
+
+        update.password = undefined;
 
         if(update.password) {
             const hash = await bcrypt.hash(update.password, saltRounds);
@@ -178,10 +181,7 @@ async function actualizarUsuario(req, res) {
         }
         
         // Actualizar datos del usuario
-        const userUpdated = await User.findByIdAndUpdate(id, update, { new: true })
-
-        // .select({ password: 0 });
-        // { new: true }
+        const userUpdated = await User.findByIdAndUpdate(id, update, { new: true }).select({ password: 0 })
 
         console.log(userUpdated)
 
