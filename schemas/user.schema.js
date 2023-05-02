@@ -20,6 +20,7 @@ const UserSchema = new Schema({
     age: { type: Number, required: true, min: 12, max: 120 },
     active: { type: Boolean, default: true, required: true },
     role: { type: String, enum: ['customer', 'seller', 'admin', 'superadmin'], default: 'customer' },
+    image: { type: String },
     permissions: [
         {
           type: String,

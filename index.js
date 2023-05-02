@@ -5,7 +5,7 @@ const app = require('./app');
 require('dotenv').config();
 
 
-const port = process.env.PORT || 3200;
+const port = process.env.PORT;
 
 
 const URL = process.env.MONGO_URL;
