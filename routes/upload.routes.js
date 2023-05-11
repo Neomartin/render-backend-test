@@ -1,11 +1,8 @@
 const express = require('express');
-const api = express.Router();
-
-
+const router = express.Router();
 const uploadController = require('../controllers/upload.controller');
 
+// Cargar image de producto
+router.post('/product/upload/image', uploadController.uploadProduct);
 
-api.post('/upload', uploadController.upload, uploadController.uploadFile);
-api.get('/file/:id', uploadController.getImage);
-api.get('/files', uploadController.getImages);
-module.exports = api;
+module.exports = router;

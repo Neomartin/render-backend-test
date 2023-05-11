@@ -2,6 +2,7 @@ const express = require('express');
 const api = express.Router();
 
 const productController = require('../controllers/product.controller');
+const uploadController = require('../controllers/upload.controller');
 
 //Leer
 api.get('/products', productController.obtenerProductos)
@@ -10,7 +11,7 @@ api.get('/products', productController.obtenerProductos)
 
 
 //Crear
-api.post('/product', productController.agregarProductos)
+api.post('/product', uploadController.uploadProduct ,productController.agregarProductos);
 //Leer productos específico
 api.get('/product/:id', productController.obtenerProducto)
 //Borrar producto

@@ -10,7 +10,13 @@ async function obtenerUsuarios(req, res) {
     const page = req.query.page;  //numero de pagina que estoy consultando
     const limit =  3; //limite de resultados a buscar **req.query.limit || limit
     try {
-        const usersFromDB = await User.find({}, { password: 0 })
+        const usersFromDB = await User.find({
+            $or: [
+                { name: { $regex: req.query.search, $options: 'i' } },
+                { email: { $regex: req.query.search, $options: 'i' } }
+            ],
+            active: true
+        }, { password: 0 })
         //collation es para que no discrimine mayusculas de minusculas en el ordanimiento 
                                     .collation({ locale:  'es' })
                                     .sort({age: -1})

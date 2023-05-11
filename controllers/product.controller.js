@@ -21,8 +21,13 @@ async function obtenerProductos(req, res) {
 }
 
 async function agregarProductos(req, res) {
+    console.log(req.body);
+    console.log(req.file);
+    //lo asigno yo al generar el nombre de la imagen uuid
+
     try {
         const product = new Product(req.body);
+
         await product.save();
     
         return res.status(200).send({

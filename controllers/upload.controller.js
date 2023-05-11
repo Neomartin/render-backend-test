@@ -1,26 +1,32 @@
 const multer = require('multer');
-const Upload = require('../schemas/upload.schema');
 const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/uploads');
+    destination: (req, file, callback) => {
+        callback(null, 'public/upload/product')
     },
-    filename: (req, file, cb) => {
-        console.log(file)
-        cb(null, `${file.originalname}-${Date.now()}.${file.mimetype.split('/')[1]}`);
+    filename: (req, file, callback) => {
+        const fileExt = file.originalname.split('.').at(-1);
+
+        const fileName = `${uuidv4()}.${fileExt}`;
+
+        req.body.image = fileName;
+        callback(null, fileName) 
     }
-});
+})
 
 const uploadMulter = multer({
-    storage: storage,
-    limits: { fileSize: 1024 * 1024 * 5 },
-    fileFilter: (req, file, cb) => {
-        file.mimetype.split('/')[0] === 'image' ? cb(null, true) : cb(null, false);	
+    storage,
+    limits: { fileSize: 1024 * 1024 * 10 },
+    fileFilter: (req, file, callback) => {
+        const type = file.mimetype.split('/')[0]
+        type === 'image' ? callback(null, true)  : callback(null, false);
     }
-});
+})
 
-const upload = uploadMulter.single('file');
+
+const uploadProduct = uploadMulter.single('file');
 
 const uploadFile = async(req, res) => {
     console.log(req.file)
@@ -55,8 +61,9 @@ async function getImages(req, res) {
     res.status(200).send(files);
 }
 
+
 module.exports = {
-    upload,
+    uploadProduct,
     uploadFile,
     getImage,
     getImages
