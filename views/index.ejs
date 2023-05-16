@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head', { tabTitle: 'Principal' }) %>
+
+<body>
+
+    <%- include('partials/header') %>
+
+    <h1><%= title  %></h1>
+    <main class="main container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-4 p-3">
+                <form id="add-product" class="product-form" onsubmit="addProduct(event)">
+                    <div class="input-box">
+                        <input type="text" name="name" id="nameLabel" required class="question" value="test-product">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label for="nameLabel">Producto</label>
+                    </div>
+                    <div class="input-box">
+                        <textarea class="question" name="description" id="descLabel" rows="5" required>Lorem ipsum MONGO_URLdolor sit amet consectetur adipisicing elit. Et totam modi unde, eum quasi eaque quod alias velit dolorem asperiores nesciunt. Mollitia repellat debitis dolorem quo ratione cupiditate ad iste!
+                        </textarea>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label for="descLabel">Descripción</label>
+                    </div>
+
+                    <div class="input-box">
+                        <input class="question" type="number" name="price" id="priceLabel" required value="100000">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label for="priceLabel">Precio</label>
+                    </div>
+
+                    <!-- <div class="input-box">
+                        <input class="question" type="url" name="image" id="imgLabel" required value="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/TVULFPUK4VHBBPNHF2Z2WTFJPI.jpg">
+                        <label for="imgLabel">Imagen</label>
+                    </div> -->
+                    <div class="input-box">
+                        <input type="file" accept="image/*" name="file" required>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="stockLabel">Stock</label>
+                        <input type="checkbox" name="stock" id="stockLabel">
+                    </div>
+                    <div class="input-box">
+                        <label for="joystickLabel">Joystick</label>
+                        <input type="checkbox" name="joystick" id="joystickLabel">
+                    </div>
+                    <div class="input-box">
+                        <select name="category" id="category" onselect="">
+                            <option value="" selected></option>
+
+                        </select>
+                    </div>
+
+                    <div class="input-box">
+                        <select name="subcategory" id="game" onselect="">
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn" id="submit-btn">Cargar Producto</button>
+                </form>
+            </div>
+            <div class="col-12 col-md-8 p-3">
+                <div class="table-container">
+                    <table class="table table-product table-striped">
+                        <thead>
+                            <tr class="table-primary">
+                                <th>Imagen</th>
+                                <th>Producto</th>
+                                <th>Descripción</th>
+                                <th>Precio</th>
+                                <th>Accesorios</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+    </main>
+    <!-- <img src="http://localhost:9000/upload/product/72ab177b-b8fd-43f1-a531-153defdd8e83.jpg" alt=""> -->
+
+
+    <%- include('partials/footer') %>
+    <!-- AXIOS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/product.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    background-color: $color-dark-gray;
+    &__column {
+        padding: 1rem 1.5rem;
+    }
+
+    &__contact-item {
+        list-style: none;
+        
+
+    }
+
+    &__contact-link {
+        color: white;
+        padding: .25rem;
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        
+
+        
+    }
+
+    &__contact-icon {
+        font-size: 1.75rem;
+        &--facebook {
+            color: #38529a;
+        }
+        &--instagram {
+            color: #f14d59;
+        }
+        &--linkedin {
+            color: #0077b6;
+        }
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .footer {
+        flex-direction: row;
+    }
+}

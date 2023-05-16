@@ -1,0 +1,50 @@
+.card {
+    margin: 1rem;
+    border: 1px solid red;
+    &__header {
+        height: 120px;
+        background-color: orange;
+    }
+
+    &__img {
+        height: 120px;
+    }
+
+    &__body {
+        padding: 1rem;
+    }
+
+    &__title {
+        font-weight: 500;
+        font-size: 1.5rem;
+        border-bottom: 2px solid orangered;
+    }
+
+    &__description {
+        padding: 1.5rem 0 2rem;
+    }
+
+    &__price {
+        font-weight: 500;
+        font-size: 1.5rem;
+        color: $color-bg-primary;
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+    }
+
+    &__date {
+        color: dodgerblue;
+    }
+
+    &__btn-container {}
+    
+    &__btn {
+        padding: 1rem 1.5rem;
+        background-color: dodgerblue;
+        color: white;
+    }
+}

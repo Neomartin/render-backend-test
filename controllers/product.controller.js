@@ -2,8 +2,8 @@ const Product = require('../schemas/product.schema');
 
 async function obtenerProductos(req, res) {
     try {
-        const products = await Product.find();
-        // console.log(products)
+        const products = await Product.find().sort({ createdAt: 'desc' });
+        console.log(products)
         return res.status(200).send({
             ok: true,
             msg: `Productos obtenidos correctamente`,

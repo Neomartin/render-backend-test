@@ -13,6 +13,7 @@ const productSchema =  new Schema({
         ref: 'Category',
         required: true,
     },
+    createdAt: { type: Number, default: Date.now },
 })
 
 module.exports = mongoose.model('Product', productSchema);
