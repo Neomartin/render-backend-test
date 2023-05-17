@@ -3,8 +3,8 @@ const token = localStorage.getItem('token');
 const selectCategoryHTML = document.getElementById('category')
 
 
-const URL = 'https://ecommerce-7yjp.onrender.com/api';
-const URL_public = 'https://ecommerce-7yjp.onrender.com';
+const URL = 'https://eit-ecommerce-fullstack.onrender.com/api';
+const URL_public = 'https://eit-ecommerce-fullstack.onrender.com';
 
 (async function cargarCategorias() {
     try {
